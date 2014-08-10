@@ -50,6 +50,5 @@
                    (when (g new-state)
                      (a/close! semaphore)))))
     (fn [& args]
-      (or (a/<!! semaphore)
-          (apply f args)))))
-
+      (a/<!! semaphore)
+      (apply f args))))
