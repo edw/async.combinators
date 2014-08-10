@@ -37,3 +37,19 @@
             embargo (- (+ start min) (System/currentTimeMillis))]
         (when (pos? embargo) (a/<!! (a/timeout embargo)))
         result))))
+
+(defn upon
+  "Combinator to evaluate `f` after reference `r` has satisfied
+  predicate `g`."
+  [r g f]
+  (let [semaphore (a/chan)]
+    (if (g @r)
+      (a/close! semaphore)
+      (add-watch r (gensym "upon")
+                 (fn [_ _ _ new-state]
+                   (when (g new-state)
+                     (a/close! semaphore)))))
+    (fn [& args]
+      (and (a/<!! semaphore)
+           (apply f args)))))
+
