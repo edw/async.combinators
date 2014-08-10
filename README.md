@@ -7,7 +7,7 @@ A Clojure asynchronous combinator library.
 To include one of the above libraries, for example `ring-core`, add
 the following to your `:dependencies`:
 
-[![Clojars Project](http://clojars.org/edw/async.combinators/latest-version.svg)]
+![Clojars Project](http://clojars.org/edw/async.combinators/latest-version.svg)
 
 ## Usage
 
