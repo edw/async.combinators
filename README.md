@@ -2,9 +2,33 @@
 
 A Clojure asynchronous combinator library.
 
+## Installation
+
+To include one of the above libraries, for example `ring-core`, add
+the following to your `:dependencies`:
+
+    [edw/async.combinators "0.1.0"]
+
 ## Usage
 
-Umm, yeah...
+```clojure
+(require '[async.combinators :as ac])
+
+(defn my-func ...)
+
+(def counter (atom 0))
+
+(def f (-> my-func
+           (pinch 10)
+           (stall 500)
+           (tally counter)
+           spawn))
+
+(doseq [x my-sequence] (f x))
+
+;; Wait for counter to hit (count my-sequence)
+
+```
 
 ## License
 
