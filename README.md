@@ -4,8 +4,8 @@ A Clojure asynchronous combinator library.
 
 ## Installation
 
-To include one of the above libraries, for example `ring-core`, add
-the following to your `:dependencies`:
+To use this library, add the following to your Leiningen project's
+`:dependencies` section:
 
 ![Clojars Project](http://clojars.org/edw/async.combinators/latest-version.svg)
 
