@@ -32,9 +32,8 @@
   (if (zero? min)
     f
     (fn [& args]
-      (let [start (System/currentTimeMillis)]
-        (let [result (apply f args)
-              embargo (- (+ start min) (System/currentTimeMillis))]
-          (when (pos? embargo) (a/<!! (a/timeout embargo)))
-          result)))))
-
+      (let [start (System/currentTimeMillis)
+            result (apply f args)
+            embargo (- (+ start min) (System/currentTimeMillis))]
+        (when (pos? embargo) (a/<!! (a/timeout embargo)))
+        result))))
