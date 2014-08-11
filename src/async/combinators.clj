@@ -27,7 +27,7 @@
          (finally (swap! a inc)))))
 
 (defn stall
-  "Ensure that evaluation of `f takes at least `min` milliseconds."
+  "Ensure that evaluation of `f` takes at least `min` milliseconds."
   [min f]
   (if (zero? min)
     f
