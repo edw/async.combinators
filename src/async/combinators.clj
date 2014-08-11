@@ -2,8 +2,8 @@
   (:require [clojure.core.async :as a]))
 
 (defn pinch
-  "Limit a function `f`'s concurrency to no more than `max-n`
-  simultaneous evaluations."
+  "Combinator to limit a function `f`'s concurrency to no more than
+  `max-n` simultaneous evaluations."
   {:added "0.1.0"}
   [max-n f]
   (let [pool (a/chan max-n)]
@@ -14,15 +14,15 @@
              (finally (a/>!! pool token)))))))
 
 (defn spawn
-  "Evaluate function `f` asynchronously. Returns a channel for
-  result."
+  "Combinator to evaluate function `f` asynchronously. Returns a
+  channel for result."
   {:added "0.1.0"}
   [f]
   (fn [& args]
     (a/go (apply f args))))
 
 (defn tally
-  "Count evaluations of `f` in atom `a`."
+  "Combinator to count evaluations of `f` in atom `a`."
   {:added "0.1.0"}
   [a f]
   (fn [& args]
@@ -30,7 +30,8 @@
          (finally (swap! a inc)))))
 
 (defn stall
-  "Ensure that evaluation of `f` takes at least `min` milliseconds."
+  "Combinator to ensure that evaluation of `f` takes at least `min`
+  milliseconds."
   {:added "0.1.0"}
   [min f]
   (if (zero? min)
