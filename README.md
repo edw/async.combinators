@@ -26,6 +26,18 @@ function to complete at which point a message is printed:
   ((upon done? identity prn) :done))
 ```
 
+An example that returns true:
+
+```clojure
+((nilf (complement identity) identity) nil)
+```
+
+An example that tries moderately hard to make nil truthy:
+
+```clojure
+((retry 3 identity) nil)
+```
+
 ## License
 
 Copyright © 2014 Edwin Watkeys.

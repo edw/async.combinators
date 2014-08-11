@@ -52,3 +52,33 @@
     (fn [& args]
       (a/<!! semaphore)
       (apply f args))))
+
+(defn after
+  "Combinator to evaluate function `f` after `delay` milliseconds have
+  passed."
+  [delay f]
+  (fn [& args]
+    (a/<!! (a/timeout delay))
+    (apply f args)))
+
+(defn retry
+  "Combinator to evaluate function `f` up to `max` times until it
+  produces a truthy value. If no such value is produced, return return
+  nil. Wait `delay` milliseconds between evaluations."
+  ([max f] (retry max 0 f))
+  ([max delay f]
+     (let [g (if (pos? delay) (after delay f) f)]
+       (fn [& args]
+         (loop [n 0 result (apply f args)]
+           (prn :n n)
+           (cond (>= n max) nil
+                 result result
+                 :else (recur (inc n) (apply g args))))))))
+
+(defn nilf
+  "Combinator to evaluate function `g` if function `f` evaluates to a
+  falsey value."
+  [g f]
+  (fn [& args]
+    (or (apply f args)
+        (apply g args))))
