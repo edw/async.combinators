@@ -4,6 +4,7 @@
 (defn pinch
   "Limit a function `f`'s concurrency to no more than `max-n`
   simultaneous evaluations."
+  {:added "0.1.0"}
   [max-n f]
   (let [pool (a/chan max-n)]
     (doseq [_ (range max-n)] (a/>!! pool 42))
@@ -15,12 +16,14 @@
 (defn spawn
   "Evaluate function `f` asynchronously. Returns a channel for
   result."
+  {:added "0.1.0"}
   [f]
   (fn [& args]
     (a/go (apply f args))))
 
 (defn tally
   "Count evaluations of `f` in atom `a`."
+  {:added "0.1.0"}
   [a f]
   (fn [& args]
     (try (apply f args)
@@ -28,6 +31,7 @@
 
 (defn stall
   "Ensure that evaluation of `f` takes at least `min` milliseconds."
+  {:added "0.1.0"}
   [min f]
   (if (zero? min)
     f
@@ -41,6 +45,7 @@
 (defn upon
   "Combinator to evaluate `f` after reference `r` has satisfied
   predicate `g`."
+  {:added "0.2.0"}
   [r g f]
   (let [semaphore (a/chan)]
     (if (g @r)
@@ -56,6 +61,7 @@
 (defn after
   "Combinator to evaluate function `f` after `delay` milliseconds have
   passed."
+  {:added "0.3.0"}
   [delay f]
   (fn [& args]
     (a/<!! (a/timeout delay))
@@ -65,6 +71,7 @@
   "Combinator to evaluate function `f` up to `max` times until it
   produces a truthy value. If no such value is produced, return return
   nil. Wait `delay` milliseconds between evaluations."
+  {:added "0.3.0"}
   ([max f] (retry max 0 f))
   ([max delay f]
      (let [g (if (pos? delay) (after delay f) f)]
@@ -77,6 +84,7 @@
 (defn nilf
   "Combinator to evaluate function `g` if function `f` evaluates to a
   falsey value."
+  {:added "0.3.0"}
   [g f]
   (fn [& args]
     (or (apply f args)
