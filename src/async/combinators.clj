@@ -70,7 +70,7 @@
 
 (defn retry
   "Combinator to evaluate function `f` up to `max` times until it
-  produces a truthy value. If no such value is produced, return return
+  produces a truthy value. If no such value is produced, return
   nil. Wait `delay` milliseconds between evaluations."
   {:added "0.3.0"}
   ([max f] (retry max 0 f))
