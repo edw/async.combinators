@@ -70,7 +70,6 @@
      (let [g (if (pos? delay) (after delay f) f)]
        (fn [& args]
          (loop [n 0 result (apply f args)]
-           (prn :n n)
            (cond (>= n max) nil
                  result result
                  :else (recur (inc n) (apply g args))))))))

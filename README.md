@@ -32,11 +32,13 @@ An example that returns true:
 ((nilf (complement identity) identity) nil)
 ```
 
-An example that tries moderately hard to make nil truthy:
+An example that tries moderately hard to make nil truthy, patiently waiting half a second between attempts. It does not end well:
 
 ```clojure
-((retry 3 identity) nil)
+((retry 3 500 identity) nil)
 ```
+
+
 
 ## License
 
