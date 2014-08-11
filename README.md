@@ -11,6 +11,8 @@ To use this library, add the following to your Leiningen project's
 
 ## Usage
 
+[Full API documentation](http://edw.github.io/async.combinators) is available.
+
 An example wherein a function that waits two seconds before printing
 its argument is decorated with the `spawn` combinator, allowing it to
 run asynchronously meanwhile the main thread of control waits for the
