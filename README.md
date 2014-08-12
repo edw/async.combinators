@@ -70,7 +70,27 @@ An example that tries moderately hard to make nil truthy, patiently waiting half
 ((retry 3 500 identity) nil)
 ```
 
+An example to return a map containing a channel with slurp results and
+the number of items:
 
+```clojure
+(defn example
+  []
+  (let [results (a/chan)
+        n (atom 0)
+        urls #{"http://example.com/" "http://poseur.com/"
+               "https://google.com/" "http://clojure.org/"}
+        f (->> slurp
+               nile
+               argment
+               (retry 3)
+               (pinch 2)
+               (deposit results)
+               spawn
+               (tally n))]
+    (doseq [url urls] (f url))
+    {:n n :ch results}))
+```
 
 ## License
 
