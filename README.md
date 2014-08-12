@@ -20,10 +20,12 @@ URLs are going to be valid--or point to data.
 
 And on and on. Pretty soon what was a single line of code has become a
 stomach-turning mess. Wouldn't it be nice if someone wrote a
-combinator library that allows you to apply various useful behaviour
+combinator library that allows you to apply various useful behaviors
 to a function, letting you concentrate on writing elegant code-haiku
 you can send to your parents when they ask, "What exactly do you _do_
 for a living?"
+
+I aspire to write such a library for you. And myself, of course.
 
 ### Note
 
