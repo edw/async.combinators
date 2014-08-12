@@ -90,6 +90,9 @@ the number of items:
                (tally n))]
     (doseq [url urls] (f url))
     {:n @n :ch results}))
+
+(let [{:keys [n ch]} (example)]
+   (into {} (repeatedly n #(a/<!! ch))))
 ```
 
 ## License
