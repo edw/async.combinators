@@ -1,4 +1,4 @@
-(defproject edw/async.combinators "0.3.3"
+(defproject edw/async.combinators "0.4.0"
   :description "Asynchronous combinators"
   :url "http://github.com/edw/async.combinators"
   :license {:name "Eclipse Public License"

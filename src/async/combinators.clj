@@ -90,3 +90,32 @@
   (fn [& args]
     (or (apply f args)
         (apply g args))))
+
+(defn nile
+  "Combinator to force function `f` to evaluate to nil in the event
+  that an exception is thrown during evaluation."
+  {:added "0.4.0"}
+  [f]
+  (fn [& args]
+    (try (apply f args)
+         (catch Exception e nil))))
+
+(defn deposit
+  "Combinator to asyncronously put value produced by evaluating function
+  `f` to port `p`. Returns result of evaluating `f`."
+  {:added "0.4.0"}
+  [p f]
+  (fn [& args]
+    (let [result (apply f args)]
+      (a/put! p result)
+      result)))
+
+(defn argment
+  "Combinator to augment the result of evaluating function `f` with
+  the argument(s) supplied, speicifcally by returning an instance of
+  clojure.lang.MapEntry containing the arguments as the key and the
+  result as the value."
+  {:added "0.4.0"}
+  [f]
+  (fn [& args]
+    (clojure.lang.MapEntry. args (apply f args))))

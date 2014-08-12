@@ -89,7 +89,7 @@ the number of items:
                spawn
                (tally n))]
     (doseq [url urls] (f url))
-    {:n n :ch results}))
+    {:n @n :ch results}))
 ```
 
 ## License
