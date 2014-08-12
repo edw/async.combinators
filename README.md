@@ -1,12 +1,11 @@
 # async.combinators
 
 I am often writing a procedure to implement a function and realize
-before long that my elegant poem of a proceedure has become something
+before long that my elegant poem of a procedure has become something
 akin to an assembly manual for discount fiberboard furniture
 translated through three languages. The source of this entropy more
-often than not is the creeping in of code to control not _what_ value
-I want the procedure to produce but _how_ the value should be
-produced.
+often than not is the in-creeping of code to control not _what_ value
+I want to produce but _how_ the value should be produced.
 
 For example, you may want to map a million URLs to objects
 representing that results of performing a GET request on them. But you
