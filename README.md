@@ -1,6 +1,35 @@
 # async.combinators
 
-A Clojure asynchronous combinator library.
+I am often writing a procedure to implement a function and realize
+before long that my elegant poem of a proceedure has become something
+akin to an assembly manual for discount fiberboard furniture
+translated through three languages. The source of this entropy more
+often than not is the creeping in of code to control not _what_ value
+I want the procedure to produce but _how_ the value should be
+produced.
+
+For example, you may want to map a million URLs to objects
+representing that results of performing a GET request on them. But you
+live in the real world, so you don't want to naively initiate a
+million asynchronous tasks, because your pipe is only so wide and the
+machine(s) you're pounding will tolerate only so much abuse, so you
+want to limit the concurrency. Oh, and the Internet, it's not
+reliable, so you want to re-try each request a few times before giving
+up. And you do want to give up eventually, because not all of those
+URLs are going to be valid--or point to data.
+
+And on and on. Pretty soon what was a single line of code has become a
+stomach-turning mess. Wouldn't it be nice if someone wrote a
+combinator library that allows you to apply various useful behaviour
+to a function, letting you concentrate on writing elegant code-haiku
+you can send to your parents when they ask, "What exactly do you _do_
+for a living?"
+
+### Note
+
+I distinguish between the terms _procedure_ and _function_ as if I
+were a pedantic Scheme programmer. There's an essay ruminating to be
+written on how these two terms may productively be applied to Clojure.
 
 ## Installation
 
