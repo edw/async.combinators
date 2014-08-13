@@ -119,3 +119,25 @@
   [f]
   (fn [& args]
     (clojure.lang.MapEntry. args (apply f args))))
+
+(defn batch
+  "Evaluate function `f` for side effects with sequences of values
+  taken from port `p`. An evaluation occurs when `n` items are taken
+  from the port or at least one item has been taken from the port and
+  at least `delay` milliseconds have elapsed since `batch` was
+  evaluated or `f` was previously evaluated. Returns port `p`."
+  {:added "0.5.0"}
+  [p n delay f]
+  (a/go-loop [last (System/currentTimeMillis)
+              coll []
+              [x q] (a/alts! [(a/timeout delay) p])
+              batched-count 0]
+    (if (and (= q p) (nil? x))
+      (do (when (seq coll) (f coll)) (+ batched-count (count coll)))
+      (let [coll (if (= p q) (conj coll x) coll) now (System/currentTimeMillis)]
+        (if (or (= (count coll) n)
+                (and (pos? (count coll)) (> now (+ last delay))))
+          (do (f coll)
+              (recur now [] (a/alts! [(a/timeout delay) p])
+                     (+ batched-count (count coll))))
+          (recur last coll (a/alts! [(a/timeout delay) p]) batched-count))))))
