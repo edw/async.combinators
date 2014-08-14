@@ -125,7 +125,9 @@
   taken from port `p`. An evaluation occurs when `n` items are taken
   from the port or at least one item has been taken from the port and
   at least `delay` milliseconds have elapsed since `batch` was
-  evaluated or `f` was previously evaluated. Returns port `p`."
+  evaluated or `f` was previously evaluated. Returns a port on which
+  the total number of items processed will be available when the port
+  passed to `batch` is closed."
   {:added "0.5.0"}
   [p n delay f]
   (a/go-loop [last (System/currentTimeMillis)
